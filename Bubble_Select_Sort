@@ -1,0 +1,99 @@
+#include <stdio.h>
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+//冒泡排序
+void Bubble_Sort(char* p, int len)
+{
+	int i, j;
+	for (i = 0; i < len; i++)
+	{
+		for (j = 0; j < len - i - 1; j++)
+		{
+			if (*(p + j) < *(p + j + 1))
+			{
+				int temp = *(p + j);
+				*(p + j) = *(p + j + 1);
+				*(p + j + 1) = temp;
+			}
+		}
+	}
+}
+
+//选择排序
+void Select_Sort(char p[], int len)
+{
+	int i, j, pos;
+	for (i = 0; i < len - 1; i++)
+	{
+		pos = i;
+		for (j = i + 1; j < len; j++)
+		{
+			if (p[j] < p[pos])	//改指针形式，*(p+j) < *(p+pos)
+			{
+				pos = j;
+			}
+		}
+		if (pos != i)
+		{
+			int temp = p[i];
+			p[i] = p[pos];
+			p[pos] = temp;
+		}
+	}
+}
+void input(char* p, int len)
+{
+	printf("输入%d个数: ", len);
+	for (int i = 0; i < len; i++)
+	{
+		scanf_s(" %d", p + i);
+	}
+	printf("输入ok!\n");
+}
+void output(char* p, int len)
+{
+	printf("输出%d个数: ", len);
+	for (int i = 0; i < len; i++)
+	{
+		printf("%d ", *(p + i));
+	}
+	printf("\n输出ok!\n");
+}
+
+//快速排序
+
+//单例模式
+class singleton
+{
+private:
+	singleton() {}
+	static singleton* Instance;
+public:
+	static singleton* GetInstance()
+	{
+		if (Instance == NULL)
+		{
+			//Lock
+			if (Instance == NULL)
+			{
+				Instance = new singleton();
+			}
+			//UNLock
+		}
+		return Instance;
+		//static singleton Instance;
+		//return &Instance;
+	}
+};
+
+int main(void)
+{
+	//选择排序
+	char ch1[20] = { '\0' };
+	input(ch1, 10);
+	Select_Sort(ch1, 10);
+	output(ch1, 10);
+}

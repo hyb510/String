@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+
+//字符串转大写
+void stringToHight(string& strTxt)
+{
+	for (int i = 0; i < strTxt.length(); i++)
+	{
+		if (strTxt.at(i) >= 0x61 && strTxt.at(i) <= 0x7A)
+		{
+			strTxt.at(i) -= 0x20;
+		}
+	}
+}
+
+//字符串转小写
+void stringToLower(string& strTxt)
+{
+	for (int i = 0; i < strTxt.length(); i++)
+	{
+		if (strTxt.at(i) >= 65 && strTxt.at(i) <= 90)
+		{
+			strTxt.at(i) += 0x20;
+		}
+	}
+}
+
+//add hyb 修剪字符串
+string TestStr(string& str)
+{
+	int nPos = 0;
+	nPos = str.find_first_not_of(" ");
+	if (str.at(nPos) != string::npos)
+	{
+		str = str.substr(nPos, str.length() - nPos);
+	}
+
+	nPos = str.find_last_not_of("");
+	if (str.at(nPos) != string::npos)
+	{
+		str = str.substr(0, nPos + 1);
+	}
+	return str;
+}
+
+//实现String连接
+string MyStrcat(string& str1, string& str2)
+{
+	string st = { '\0' };
+	st = str1 + str2;
+	return st;
+}
+
+//实现String复制
+string MyStrcpy(string& str1, string& str2)
+{
+	string st = { '\0' };
+	str1 = str2;
+	return str1;
+}
+
+//实现String比较
+int MyStrcmp(char* str1, char* str2)
+{
+	int i = 0;
+	while ('\0' != *(str1 + i) && '\0' != *(str2 + i) && *(str1 + i) == *(str2 + i))
+	{
+		i++;
+	}
+	return *(str1 + i) - *(str2 + i);
+}
+
+int main(void)
+{
+  string num1 = "    hello WORLD";
+	string num2 = "    HELLO world";
+	stringToHight(num1);
+	stringToLower(num2);
+	TestStr(num1);
+	TestStr(num2);
+	cout << "num1: " << num1 << endl;
+	cout << "num2: " << num2 << endl;
+
+	string str1 = "hello";
+	string str2 = "world";
+	string str3 = "one";
+	string str4 = "two";
+	char ch1[20] = {0};
+	char ch2[20] = { 0};
+	printf("输入第一个字符串: ");
+	fgets(ch1, 20, stdin);		//回车也会读进去
+	printf("输入第二个字符串: ");
+	fgets(ch2, 20, stdin);
+	cout << "MyStrcat(str1, str2): " << MyStrcat(str1, str2) << endl;
+	cout << "MyStrcpy(str3, str4): " << MyStrcpy(str3, str4) << endl;
+	cout << "MyStrcmp(ch1,ch2): " << MyStrcmp(ch1, ch2) << endl;
+}

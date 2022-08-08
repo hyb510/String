@@ -29,6 +29,40 @@ void stringToLower(string& strTxt)
 	}
 }
 
+string StringConvert(const string &strSource, bool Islower)
+{
+	int32_t i, len;
+	string str;
+
+	len = strSource.length();
+	if (Islower)
+	{
+		for (i = 0; i < len; i++)
+		{
+			if (strSource.at(i) == 0x20)
+				continue;
+			if (strSource.at(i) >= 0x41 && strSource.at(i) <= 0x5A) //A-Z
+				str += strSource.at(i) + 0x20;
+			else
+				str += strSource.at(i);
+		}
+	}
+	else
+	{
+		for (i = 0; i < len; i++)
+		{
+			if (strSource.at(i) == 0x20)
+				continue;
+			if (strSource.at(i) >= 0x61 && strSource.at(i) <= 0x7A) //a-z
+				str += strSource.at(i) - 0x20;
+			else
+				str += strSource.at(i);
+		}
+	}
+
+	return str;
+}
+
 //add hyb 修剪字符串
 string TestStr(string& str)
 {
